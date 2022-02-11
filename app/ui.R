@@ -7,8 +7,8 @@ library(leaflet.extras)
 
 # Define UI for application that draws a histogram
 shinyUI(
-  navbarPage(strong("311 Study",style="color: white;"), 
-             theme=shinytheme("united"), # from https://rstudio.github.io/shinythemes/
+  navbarPage(strong("311 Study",style="color: black;"), 
+             theme=shinytheme("lumen"), # from https://rstudio.github.io/shinythemes/
              #------------------------------- tab panel - Dashboard ---------------------------------
              tabPanel(
                "Introduction",
