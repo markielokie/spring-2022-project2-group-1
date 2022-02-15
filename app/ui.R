@@ -14,6 +14,7 @@ shinyUI(
                "Introduction",
                icon=icon("fire-alt"),
                tags$img(
+                 ## need to change
                  src = "https://upload.wikimedia.org/wikipedia/commons/thumb/7/74/Normal_Distribution_PDF.svg/1280px-Normal_Distribution_PDF.svg.png",
                  width = "100%",
                  style = "opacity: 0.90"
@@ -40,7 +41,7 @@ shinyUI(
                           # side by side plots
                           fluidRow(
                             splitLayout(cellWidths = c("50%", "50%"), 
-                                        leafletOutput("left_map",width="100%",height=1000),
+                                        leafletOutput("left_map",width="100%",height=1200),
                                         leafletOutput("right_map",width="100%",height=1200))),
                           #control panel on the left
                           absolutePanel(id = "control", class = "panel panel-default", fixed = TRUE, draggable = TRUE,
@@ -71,7 +72,7 @@ shinyUI(
                                                     choices = c('Yes','No','?'),
                                                     selected = '?'
                                         ),
-                                        sliderInput(inputId = "bins",
+                                        sliderInput(inputId = "bins_2",
                                                     label = "Number of bins:",
                                                     min = 1,
                                                     max = 50,
@@ -81,26 +82,72 @@ shinyUI(
                           ), #Panel Control - Closing
                       ) #Maps - Div closing
              ), #tabPanel maps closing
+                  
+            #------------------------------- tab panel - 3 ---------------------------------
+            tabPanel(
+             "Covid Cases",
+             icon=icon("fire-alt"),
              
+             sidebarLayout(
+               
+               # Sidebar panel for inputs ----
+               sidebarPanel(
+                 width = 3,
+                 tags$h4('Start Date: '), 
+                 # Input: Slider for the number of bins ----
+                
+                 selectInput('year1',
+                             label = 'Year',
+                             choices = c('2020','2021','2022'),
+                             selected = '2020'),
+                 selectInput('month1',
+                             label = 'Month',
+                             choices = c('1','2','3','4','5','6','7','8','9','10','11','12'),
+                             selected = '3'),
+                 selectInput('day1',
+                             label = 'Day',
+                             choices = c('1','2','3','4','5','6','7','8','9','10',
+                                         '11','12','13','14','15','16','17','18','19','20',
+                                         '21','22','23','24','25','26','27','28','29','30','31'),
+                             selected = '1'),
+                 tags$h4('End Date: '),
+                 selectInput('year2',
+                             label = 'Year',
+                             choices = c('2020','2021','2022'),
+                             selected = '2022'),
+                 selectInput('month2',
+                             label = 'Month',
+                             choices = c('1','2','3','4','5','6','7','8','9','10','11','12'),
+                             selected = '2'),
+                 selectInput('day2',
+                             label = 'Day',
+                             choices = c('1','2','3','4','5','6','7','8','9','10',
+                                         '11','12','13','14','15','16','17','18','19','20',
+                                         '21','22','23','24','25','26','27','28','29','30','31'),
+                             selected = '8'),
+               ),
+               
+               # Main panel for displaying outputs ----
+               mainPanel(
+                 # Output: Histogram ----
+                 plotOutput(outputId = "distPlot_3"),
+                 plotOutput(outputId = "distPlot_4")
+               )
+             )
              
-             
-#------------------------------- tab panel - 3 ---------------------------------
-tabPanel(
- "Panel3",
- icon=icon("fire-alt"),
-),
-
-#------------------------------- tab panel - 4 ---------------------------------
-tabPanel(
-  "Panel4",
-  icon=icon("fire-alt"),
-),             
-
-#------------------------------- tab panel - 5 ---------------------------------
-tabPanel(
-  "Panel5",
-  icon=icon("fire-alt"),
-),             
+            ),
+            
+            #------------------------------- tab panel - 4 ---------------------------------
+            tabPanel(
+              "Panel4",
+              icon=icon("fire-alt"),
+            ),             
+            
+            #------------------------------- tab panel - 5 ---------------------------------
+            tabPanel(
+              "Panel5",
+              icon=icon("fire-alt"),
+            ),             
              
   ) #navbarPage closing  
 ) #Shiny UI closing    
