@@ -72,11 +72,11 @@ shinyUI(
                                                     choices = c('Yes','No','?'),
                                                     selected = '?'
                                         ),
-                                        sliderInput(inputId = "bins_2",
-                                                    label = "Number of bins:",
+                                        sliderInput(inputId = "radiu",
+                                                    label = "radiu:",
                                                     min = 1,
-                                                    max = 50,
-                                                    value = 30),
+                                                    max = 15,
+                                                    value = 10),
                                         style = "opacity: 0.80"
                                         
                           ), #Panel Control - Closing
@@ -94,7 +94,6 @@ shinyUI(
                sidebarPanel(
                  width = 3,
                  tags$h4('Start Date: '), 
-                 # Input: Slider for the number of bins ----
                 
                  selectInput('year1',
                              label = 'Year',
@@ -139,8 +138,15 @@ shinyUI(
             
             #------------------------------- tab panel - 4 ---------------------------------
             tabPanel(
-              "Panel4",
+              "plots",
               icon=icon("fire-alt"),
+              # Main panel for displaying outputs ----
+              mainPanel(
+                # Output: Histogram ----
+                plotOutput(outputId = "distPlot_5"),
+                plotOutput(outputId = "distPlot_6")
+              )
+              
             ),             
             
             #------------------------------- tab panel - 5 ---------------------------------

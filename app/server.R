@@ -15,12 +15,16 @@ brief311 = brief311 %>%
   drop_na()
 
 
+# ------- the date should be changed 
 time1 = brief311[difftime(brief311$`Created Date`,"2022-01-31") <= 0,] #2022-01-01 ~ 2022-01-31
 time2 = brief311[difftime(brief311$`Created Date`,"2022-01-31")>=0,] #2022-02-01 ~ 2022-02-09
+# ----------------------------------
+
+
 
 # Define server logic required to draw a histogram
 shinyServer(function(input, output) {
-  
+
   ## Map Tab section
   
   #-------------------------- left map --------------------------
@@ -42,7 +46,7 @@ shinyServer(function(input, output) {
           lat=~Latitude,
           intensity=~n,#change to total day diff percentage
           max=10,
-          radius=8,
+          radius=input$radiu,
           blur=10)
       
     }) #left map plot
@@ -66,7 +70,7 @@ shinyServer(function(input, output) {
         lat=~Latitude,
         intensity=~n,#change to total day diff percentage
         max=10,
-        radius=8,
+        radius=input$radiu,
         blur=10)
 
   }) #right map plot
@@ -120,9 +124,7 @@ shinyServer(function(input, output) {
           subtitle="7-Day Moving Average",
           x="Date"
         ) 
-      
-      
-      
+  
     }) ## close distPlot_3
   
   
@@ -165,6 +167,36 @@ shinyServer(function(input, output) {
         x="Date"
       ) 
   }) ## close distPlot_4
+  
+  #------------------------------ plots -----------------------------
+  
+  
+  output$distPlot_5 <- renderPlot({ 
+    
+    barplotdata = time1%>% ## time2 are defined at line 19 (could be changed)
+      group_by(`Agency Name`) %>%
+      count()%>%
+      arrange(n)
+    
+    ggplot(data = barplotdata,aes(x =  reorder(`Agency Name`,-n)  ,y=n, fill= reorder(`Agency Name`,-n) ))+
+      geom_bar(stat = "identity")+
+      theme(axis.text.x = element_blank())+
+      labs(x="Agency",y="Cases",fill="Agency Name",title = "Time1")
+  }) ## close distPlot_5
+  
+  output$distPlot_6 <- renderPlot({ 
+    
+    barplotdata = time2%>% ## time2 are defined at line 20 (could be changed)
+      group_by(`Agency Name`) %>%
+      count()%>%
+      arrange(n)
+    
+    ggplot(data = barplotdata,aes(x =  reorder(`Agency Name`,-n)  ,y=n, fill= reorder(`Agency Name`,-n) ))+
+      geom_bar(stat = "identity")+
+      theme(axis.text.x = element_blank())+
+      labs(x="Agency",y="Cases",fill="Agency Name",title = "Time2")
+  }) ## close distPlot_6
+  
   
   #--------------------------------------
   
