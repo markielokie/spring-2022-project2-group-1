@@ -15,7 +15,7 @@ shinyUI(
                icon=icon("fire-alt"),
                tags$img(
                  ## need to change
-                 src = "https://upload.wikimedia.org/wikipedia/commons/thumb/7/74/Normal_Distribution_PDF.svg/1280px-Normal_Distribution_PDF.svg.png",
+                 src = "https://play-lh.googleusercontent.com/frrVTacZfKCUIapOpvbtIW6BaqwwKgEyiZ_84ad4hWg1jF8I5cUirv0GLL8rFZtdCRJQ",
                  width = "100%",
                  style = "opacity: 0.90"
                ),
@@ -23,17 +23,17 @@ shinyUI(
                  absolutePanel(
                    #style = "",
                    top = "20%",
-                   left = "25%",
-                   right = "25%",
+                   left = "5%",
+                   right = "52%",
                    height = 170,
                    tags$p(
-                     style = "padding: 5%; background-color: yellow; font-family: alegreya; font-size: 120%;opacity: 0.50",
+                     style = "padding: 5%; background-color: white; font-family: alegreya; font-size: 120%;opacity: 0.90",
                      "Some introduction!!!" 
                    )
                  )
                )
              ),
-
+            
              #------------------------------- tab panel - Maps ---------------------------------
              tabPanel("Maps",
                       icon = icon("map-marker-alt"), #choose the icon for
@@ -46,44 +46,32 @@ shinyUI(
                           #control panel on the left
                           absolutePanel(id = "control", class = "panel panel-default", fixed = TRUE, draggable = TRUE,
                                         top = 200, left = 50, right = "auto", bottom = "auto", width = 250, height = "auto",
-                                        tags$h4('title1'), 
+                                        tags$h4('Left Map'), 
+                                        
+                                        selectInput('phase1',
+                                                    label = 'Phase',
+                                                    choices = c('Phase 0: Oct 2019 - Feb 2020','Phase 1: Mar 2020 - May 2020',
+                                                                'Phase 2: Jun 2020 - Oct 2020','Phase 3: Nov 2020 - May 2021',
+                                                                'Phase 4: Jun 2021 - Oct 2021','Phase 5: Nov 2021 - present'),
+                                                    selected = 'Phase 0: Oct 2019 - Feb 2020'
+                                        ),
                                         tags$br(),
-                                        tags$h5('title2'), 
-                                        prettyRadioButtons(
-                                          inputId = "Id1",
-                                          label = "Label1:", 
-                                          choices = c("1", 
-                                                      "2", 
-                                                      "3",
-                                                      "4"),
-                                          inline = TRUE, 
-                                          status = "danger",
-                                          fill = TRUE
+                                        tags$h4('Right Map'), 
+                                        selectInput('phase2',
+                                                    label = 'Phase',
+                                                    choices = c('Phase 0: Oct 2019 - Feb 2020','Phase 1: Mar 2020 - May 2020',
+                                                                'Phase 2: Jun 2020 - Oct 2020','Phase 3: Nov 2020 - May 2021',
+                                                                'Phase 4: Jun 2021 - Oct 2021','Phase 5: Nov 2021 - present'),
+                                                    selected = 'Phase 5: Nov 2021 - present'
                                         ),
-                                        awesomeRadio("Id2", 
-                                                     label="Label2",
-                                                     choices =c("a",
-                                                                "b", 
-                                                                "c"), 
-                                                     selected = "b",
-                                                     status = "warning"),
-                                        selectInput('id3',
-                                                    label = 'Label3',
-                                                    choices = c('Yes','No','?'),
-                                                    selected = '?'
-                                        ),
-                                        sliderInput(inputId = "radiu",
-                                                    label = "radiu:",
-                                                    min = 1,
-                                                    max = 15,
-                                                    value = 10),
+
                                         style = "opacity: 0.80"
                                         
                           ), #Panel Control - Closing
                       ) #Maps - Div closing
              ), #tabPanel maps closing
                   
-            #------------------------------- tab panel - 3 ---------------------------------
+            #------------------------------- tab panel - Covid ---------------------------------
             tabPanel(
              "Covid Cases",
              icon=icon("fire-alt"),
@@ -138,21 +126,37 @@ shinyUI(
             
             #------------------------------- tab panel - 4 ---------------------------------
             tabPanel(
-              "plots",
+              "panel 4",
               icon=icon("fire-alt"),
               # Main panel for displaying outputs ----
               mainPanel(
                 # Output: Histogram ----
-                plotOutput(outputId = "distPlot_5"),
-                plotOutput(outputId = "distPlot_6")
+                #plotOutput(outputId = "distPlot_5"),
+                #plotOutput(outputId = "distPlot_6")
               )
               
             ),             
             
-            #------------------------------- tab panel - 5 ---------------------------------
+            #------------------------------- tab panel - network diagram ---------------------------------
             tabPanel(
-              "Panel5",
+              "network diagram",
               icon=icon("fire-alt"),
+              sidebarPanel(
+                width = 3,
+                tags$h4('Pandemic Phases: '), 
+                
+                selectInput('phase',
+                            label = '',
+                            choices = c('Phase 0: Oct 2019 - Feb 2020','Phase 1: Mar 2020 - May 2020',
+                                        'Phase 2: Jun 2020 - Oct 2020','Phase 3: Nov 2020 - May 2021',
+                                        'Phase 4: Jun 2021 - Oct 2021','Phase 5: Nov 2021 - present'),
+                            selected = 'Phase 0: Oct 2019 - Feb 2020'),
+
+              ),
+              mainPanel(
+                h2(textOutput("phase_text")),
+                plotOutput(outputId = "distPlot_network")
+              ),
             ),             
              
   ) #navbarPage closing  

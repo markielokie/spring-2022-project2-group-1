@@ -6,21 +6,28 @@ library(magrittr)
 library(mapview)
 library(leafsync)
 library(zoo)
+library(rgdal)
+source("../doc/311_network_diagrams.R")
 
 #Data Processing
-brief311 = read_csv('../data/2022_brief.csv')
 
-brief311 = brief311 %>%
-  mutate(`Created Date` = as.Date(brief311$`Created Date`,format = "%m/%d/%Y"))%>%
-  drop_na()
+nyczip = readOGR("../data/zip_code_040114.geojson")
+zip_pop=read_csv("../data/nyc_zip_borough_neighborhoods_pop.csv")
+pop=zip_pop$population[as.numeric(mapply(nyczip$ZIPCODE,FUN = function(x){which (x==zip_pop$zip)}))]
+pop[is.na(pop)] = 0
+nyczip$POPULATION=pop
 
-
+map1=leaflet(nyczip) %>%
+  addTiles() %>%
+  addProviderTiles("CartoDB.Positron" )
+map2=leaflet(nyczip) %>%
+  addTiles() %>%
+  addProviderTiles("CartoDB.Positron" )
+pal <- colorNumeric("Greens", NULL)
 # ------- the date should be changed 
-time1 = brief311[difftime(brief311$`Created Date`,"2022-01-31") <= 0,] #2022-01-01 ~ 2022-01-31
-time2 = brief311[difftime(brief311$`Created Date`,"2022-01-31")>=0,] #2022-02-01 ~ 2022-02-09
+#time1 = brief311[difftime(brief311$`Created Date`,"2022-01-31") <= 0,] #2022-01-01 ~ 2022-01-31
+#time2 = brief311[difftime(brief311$`Created Date`,"2022-01-31")>=0,] #2022-02-01 ~ 2022-02-09
 # ----------------------------------
-
-
 
 # Define server logic required to draw a histogram
 shinyServer(function(input, output) {
@@ -30,50 +37,30 @@ shinyServer(function(input, output) {
   #-------------------------- left map --------------------------
   
   output$left_map <- renderLeaflet({
-
-    map_time1 <- time1%>% 
-      group_by(Latitude, Longitude) %>%
-      count()%>%
-      leaflet(options = leafletOptions(minZoom = 10, maxZoom = 16)) %>%
-      addTiles() %>%
-      addProviderTiles("CartoDB.Positron",
-                       options = providerTileOptions(noWrap = TRUE)) %>%
-      setView(-73.9834,40.7504,zoom = 12)
-      
-    map_time1 %>%
-        addHeatmap(
-          lng=~Longitude,
-          lat=~Latitude,
-          intensity=~n,#change to total day diff percentage
-          max=10,
-          radius=input$radiu,
-          blur=10)
+    phase  = input$phase1
+    map1%>%
+      addPolygons(stroke = FALSE, smoothFactor = 0.3, fillOpacity = 0.7,
+                  fillColor = ~pal((POPULATION)),
+                  popup = ~(paste0( 
+                    "<b>Zip Code: ",ZIPCODE,
+                    "<br/>Population: ",POPULATION) )  )  %>%
+      addLegend(pal = pal, values = ~POPULATION, opacity = 0.8) 
       
     }) #left map plot
   
   #-------------------------- right map --------------------------
-  
-  output$right_map <- renderLeaflet({
-    
-    map_time2 <- time2%>% 
-      group_by(Latitude, Longitude) %>%
-      count()%>%
-      leaflet(options = leafletOptions(minZoom = 10, maxZoom = 16)) %>%
-      addTiles() %>%
-      addProviderTiles("CartoDB.Positron",
-                       options = providerTileOptions(noWrap = TRUE)) %>%
-      setView(-73.9834,40.7504,zoom = 12)
-    
-    map_time2 %>%
-      addHeatmap(
-        lng=~Longitude,
-        lat=~Latitude,
-        intensity=~n,#change to total day diff percentage
-        max=10,
-        radius=input$radiu,
-        blur=10)
 
-  }) #right map plot
+    output$right_map <- renderLeaflet({
+      phase  = input$phase2
+      map2%>%
+        addPolygons(stroke = FALSE, smoothFactor = 0.3, fillOpacity = 0.7,
+                    fillColor = ~pal((POPULATION)),
+                    popup = ~(paste0( 
+                      "<b>Zip Code: ",ZIPCODE,
+                      "<br/>Population: ",POPULATION) )  )  %>%
+        addLegend(pal = pal, values = ~POPULATION, opacity = 0.8) 
+      
+    }) #right map plot
   
 
 #-------------------------- covid_cases.R --------------------------
@@ -168,38 +155,31 @@ shinyServer(function(input, output) {
       ) 
   }) ## close distPlot_4
   
-  #------------------------------ plots -----------------------------
   
   
-  output$distPlot_5 <- renderPlot({ 
+  #-------------------   distPlot_network  ------------------- 
+  
+  
+  output$distPlot_network <- renderPlot({ 
     
-    barplotdata = time1%>% ## time2 are defined at line 19 (could be changed)
-      group_by(`Agency Name`) %>%
-      count()%>%
-      arrange(n)
+    plot_network_diagram(biword_df = biwords_counts, phase_str = paste0("phase",substr(input$phase,start=7,stop=7)))
     
-    ggplot(data = barplotdata,aes(x =  reorder(`Agency Name`,-n)  ,y=n, fill= reorder(`Agency Name`,-n) ))+
-      geom_bar(stat = "identity")+
-      theme(axis.text.x = element_blank())+
-      labs(x="Agency",y="Cases",fill="Agency Name",title = "Time1")
-  }) ## close distPlot_5
+  }) ## close distPlot_network
   
-  output$distPlot_6 <- renderPlot({ 
+  output$phase_text  <- renderText ({ 
     
-    barplotdata = time2%>% ## time2 are defined at line 20 (could be changed)
-      group_by(`Agency Name`) %>%
-      count()%>%
-      arrange(n)
+    p=substr(input$phase,start=7,stop=7)
+    if(p=="0"){p="Phase 0: pre-pandemic (Oct 2019 - Feb 2020)"}
+    else if(p=="1"){p="Phase 1: initial outbreak (Mar 2020 - May 2020)"}
+    else if(p=="2"){p="Phase 2: cases go down (Jun 2020 - Oct 2020)"}
+    else if(p=="3"){p="Phase 3: cases go up + delta variant (Nov 2020 - May 2021)"}
+    else if(p=="4"){p="Phase 4: cases go down (Jun 2021 - Oct 2021)"}
+    else if(p=="5"){p="Phase 5: cases go up + omicron variant (Nov 2021 - present)"}
+    return(p)
     
-    ggplot(data = barplotdata,aes(x =  reorder(`Agency Name`,-n)  ,y=n, fill= reorder(`Agency Name`,-n) ))+
-      geom_bar(stat = "identity")+
-      theme(axis.text.x = element_blank())+
-      labs(x="Agency",y="Cases",fill="Agency Name",title = "Time2")
-  }) ## close distPlot_6
-  
-  
-  #--------------------------------------
+  }) ## close phase_text
   
 })
+
 
 
