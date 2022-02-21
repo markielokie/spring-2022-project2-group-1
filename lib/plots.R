@@ -163,5 +163,6 @@ plot.corr <- function(df, thres=0.7) {
   
   pheatmap(as.matrix(complaint_corr_filt), 
            main = "Correlation between Covid and Non-Covid Calls", 
-           fontsize = 12)
+           fontsize = 12,
+           angle_col = "0")
 }
