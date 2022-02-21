@@ -7,8 +7,8 @@ library(DT)
 
 # Define UI for application that draws a histogram
 shinyUI(
-  navbarPage(strong("311 Study",style="color: black;"), 
-             theme=shinytheme("lumen"), # from https://rstudio.github.io/shinythemes/
+  navbarPage(strong("Impact of COVID on 311 Calls",style="color: #FFF202;"), 
+             theme=shinytheme("superhero"), # from https://rstudio.github.io/shinythemes/
              #------------------------------- tab panel - Dashboard ---------------------------------
              tabPanel(
                "Introduction",
@@ -22,7 +22,7 @@ shinyUI(
                fluidRow(
                  absolutePanel(
                    #style = "",
-                   top = "20%",
+                   top = "30%",
                    left = "5%",
                    right = "52%",
                    height = 170,
@@ -35,7 +35,7 @@ shinyUI(
              ),
             
              #------------------------------- tab panel - Maps ---------------------------------
-             tabPanel("Maps",
+             tabPanel("Heatmaps of call volume",
                       icon = icon("map-marker-alt"), #choose the icon for
                       div(class = 'outer',
                           # side by side plots
@@ -53,12 +53,12 @@ shinyUI(
                                                     choices = c('Phase 0: Oct 2019 - Feb 2020','Phase 1: Mar 2020 - May 2020',
                                                                 'Phase 2: Jun 2020 - Oct 2020','Phase 3: Nov 2020 - May 2021',
                                                                 'Phase 4: Jun 2021 - Oct 2021','Phase 5: Nov 2021 - present',
-                                                                "Overall", "Population"),
+                                                                "Total # of Calls in all phases", "Population #"),
                                                     selected = 'Phase 5: Nov 2021 - present'),
                                         
-                                        checkboxInput('norm_p1',label="per 10000 people",value = TRUE ) ,
-                                        checkboxInput('norm_d1',label="per day",value = TRUE ),
-                                        checkboxInput('covid1',label="Only covid-related",value = FALSE ),
+                                        checkboxInput('norm_p1',label="Per 10,000 people",value = TRUE ) ,
+                                        checkboxInput('norm_d1',label="Per day",value = TRUE ),
+                                        checkboxInput('covid1',label="Only COVID-related calls",value = FALSE ),
                                         tags$br(),
                                         tags$h4('Right Map'), 
                                         selectInput('phase2',
@@ -66,11 +66,11 @@ shinyUI(
                                                     choices = c('Phase 0: Oct 2019 - Feb 2020','Phase 1: Mar 2020 - May 2020',
                                                                 'Phase 2: Jun 2020 - Oct 2020','Phase 3: Nov 2020 - May 2021',
                                                                 'Phase 4: Jun 2021 - Oct 2021','Phase 5: Nov 2021 - present',
-                                                                "Overall", "Population"),
+                                                                "Total # of calls in all phases", "Population #"),
                                                     selected = 'Phase 5: Nov 2021 - present'),
-                                        checkboxInput('norm_p2',label="per 10000 people",value = TRUE ),
-                                        checkboxInput('norm_d2',label="per day",value = TRUE ),
-                                        checkboxInput('covid2',label="Only covid-related",value = TRUE ),
+                                        checkboxInput('norm_p2',label="Per 10,000 people",value = TRUE ),
+                                        checkboxInput('norm_d2',label="Per day",value = TRUE ),
+                                        checkboxInput('covid2',label="Only COVID-related calls",value = TRUE ),
 
                                         style = "opacity: 0.80"
                                         
@@ -101,7 +101,7 @@ shinyUI(
             ),          
             #------------------------------- tab panel - Correlation ---------------------------------
             tabPanel(
-              "Correlation between Covid Calls and Non-Covid Calls",
+              "Correlation between Covid and non-Covid Calls",
               icon=icon("fire-alt"),
               # Main panel for displaying outputs ----
               mainPanel(
@@ -114,7 +114,7 @@ shinyUI(
             
             #------------------------------- tab panel - network diagram ---------------------------------
             tabPanel(
-              "Covid cases/wordcloud",
+              "311 call topics throughout the pandemic",
               icon=icon("fire-alt"),
               sidebarPanel(
                 width = 3,

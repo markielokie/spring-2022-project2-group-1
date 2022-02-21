@@ -140,7 +140,7 @@ shinyServer(function(input, output) {
   output$left_map <- renderLeaflet({
    
     if (input$phase1 =="Population") {
-      pal <- colorNumeric("Greens",NULL)
+      pal <- colorNumeric("YlOrRd",NULL)
       map1=leaflet(nyczip) %>%
         addTiles() %>%
         addProviderTiles("CartoDB.Positron" ) %>%
@@ -184,7 +184,7 @@ shinyServer(function(input, output) {
       lambda=ifelse(input$norm_p1,1,5)*ifelse(input$norm_d1,1,100*ifelse(input$phase1=="Overall",6,1))/
         ifelse(input$covid1,100,1)
       ## function for select color
-      pal <- colorNumeric("Greens", 0:20*lambda,na.color = "#0B5345")
+      pal <- colorNumeric("YlOrRd", 0:20*lambda, na.color = "#8b0000")
       
       map1=leaflet(nyczip) %>%
         addTiles() %>%
@@ -194,11 +194,11 @@ shinyServer(function(input, output) {
                     popup = ~(paste0( 
                       "<b>Zip Code: ",ZIPCODE,
                       "<br/>Population: ",POPULATION,
-                      "<br/>Volume:",round(Volume,5))),
+                      "<br/>Volume: ",round(Volume,5))),
                     highlight = highlightOptions(
                       weight = 1, color = "red",bringToFront = TRUE) 
                     )  %>%
-        addLegend(pal = pal, values = 0:20*lambda, title =  "Calls", opacity = 0.8) 
+        addLegend(pal = pal, values = 0:20*lambda, title =  "# of Calls", opacity = 0.8) 
     }
   }) #left map plot
   
@@ -207,7 +207,7 @@ shinyServer(function(input, output) {
     output$right_map <- renderLeaflet({
       
       if (input$phase2 =="Population") {
-        pal <- colorNumeric("Greens",NULL)
+        pal <- colorNumeric("YlOrRd",NULL)
         map1=leaflet(nyczip) %>%
           addTiles() %>%
           addProviderTiles("CartoDB.Positron" ) %>%
@@ -251,7 +251,7 @@ shinyServer(function(input, output) {
         lambda=ifelse(input$norm_p2,1,5)*ifelse(input$norm_d2,1,100*ifelse(input$phase2=="Overall",6,1))/
           ifelse(input$covid2,100,1)
         ## function for select color
-        pal <- colorNumeric("Greens", 0:20*lambda,na.color = "#0B5345")
+        pal <- colorNumeric("YlOrRd", 0:20*lambda, na.color = "#8b0000")
         
         map2=leaflet(nyczip) %>%
           addTiles() %>%
@@ -261,11 +261,11 @@ shinyServer(function(input, output) {
                       popup = ~(paste0( 
                         "<b>Zip Code: ",ZIPCODE,
                         "<br/>Population: ",POPULATION,
-                        "<br/>Volume:",round(Volume,5))),
+                        "<br/>Volume: ",round(Volume,5))),
                       highlight = highlightOptions(
                         weight = 1, color = "red",bringToFront = TRUE) 
                       ) %>%
-          addLegend(pal = pal, values = 0:20*lambda, title =  "Calls", opacity = 0.8) 
+          addLegend(pal = pal, values = 0:20*lambda, title =  "# of Calls", opacity = 0.8) 
       }
     }) #right map plot
   
