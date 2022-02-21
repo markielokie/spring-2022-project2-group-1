@@ -3,7 +3,7 @@ library(shinyWidgets)
 library(shinythemes)
 library(leaflet)
 library(leaflet.extras)
-
+library(DT)
 
 # Define UI for application that draws a histogram
 shinyUI(
