@@ -15,7 +15,7 @@ shinyUI(
                icon=icon("fire-alt"),
                tags$img(
                  ## need to change
-                 src = "https://play-lh.googleusercontent.com/frrVTacZfKCUIapOpvbtIW6BaqwwKgEyiZ_84ad4hWg1jF8I5cUirv0GLL8rFZtdCRJQ",
+                 src = "https://pbs.twimg.com/media/ER8s5YYXkAIwh78.jpg",
                  width = "100%",
                  style = "opacity: 0.90"
                ),
