@@ -1,0 +1,119 @@
+---
+title: "Trend Analysis"
+author: "Christie Du"
+date: "2/15/2022"
+output: html_document
+---
+
+```{r}
+packages.used = c("DT", "tidyverse", "zoo",
+                  "pheatmap", "ggplot2", "dplyr",
+                  "stringr")
+
+packages.needed=setdiff(packages.used, 
+                        intersect(installed.packages()[,1], 
+                                  packages.used))
+
+if(length(packages.needed)>0){
+  install.packages(packages.needed, dependencies = TRUE)
+}
+
+library(DT)
+library(tidyverse)
+library(zoo)
+library(pheatmap)
+library(ggplot2)
+library(dplyr)
+library(stringr)
+
+source("cleaning.R")
+source("plots.R")
+```
+
+### Step 1: Load Data
+
+```{r}
+covid_calls = read.csv("../output/covid_calls.csv", na.strings=c("","N/A","NA"))
+ncalls = read.csv("../output/ncalls_by_date_complaint.csv", na.strings=c("","N/A","NA"))
+complaint_corr = read.csv("../output/complaint_corr.csv", na.strings=c("","N/A","NA"))
+complaint_corr = complaint_corr %>%
+  remove_rownames %>% column_to_rownames(var="X")%>%
+  remove_rownames %>% column_to_rownames(var="term")
+```
+
+
+## Step 2: Covid-19 calls throughout the pandemic
+
+Different Phases of the Pandemic:
+
+1. Initial outbreak (Mar 2020 - Jun 2020)
+2. Covid cases go down (Jun 2020 - Nov 2020)
+3. Covid cases go up + Delta variant (Nov 2020 - Jun 2021)
+4. Covid cases go down (Jun 2021 - Nov 2021)
+5. Covid cases spike + Omicron variant (Nov 2021 - present)
+
+### Barcharts of most common Covid-19 call types
+
+```{r}
+covid_complaints = unique(covid_calls$Complaint.Type)
+```
+
+```{r}
+by_covid_complaint = process.freq.df(covid_calls)
+datatable(by_covid_complaint)
+# omit datatable for dashboard - simply for viewing
+```
+
+```{r}
+plot.freq.bp(by_covid_complaint)
+```
+
+### Time Series of Covid Calls
+
+```{r}
+plot.ts.complaints(covid_calls)
+```
+
+# Viewing covid call volume by borough
+
+```{r}
+neighborhood = read.csv("../data/nyc_zip_borough_neighborhoods_pop.csv", na.strings=c("","N/A","NA"))
+borough_pop = neighborhoods %>% 
+  group_by(borough) %>% 
+  summarise(total_pop = sum(population))
+```
+
+
+```{r}
+complaint = "noncompliance with phased reopening"
+plot.borough.bp(covid_calls, complaint)
+```
+
+## Step 3: Correlation between Covid Calls and Non-Covid Calls
+
+```{r}
+colnames(complaint_corr) = c("non-compliance\nw/phased\nreopening",
+                                  "vaccine mandate\nnon-compliance",
+                                  "mass gathering\ncomplaint",
+                                  "covid-19\nnon-essential\nconstruction",
+                             "face covering\nviolation")
+```
+
+
+```{r}
+plot.corr(complaint_corr)
+```
+
+
+```{r}
+datatable(complaint_corr, 
+          options = list(pageLength=5)) %>%
+  formatRound(columns = colnames(complaint_corr), digits=3)
+# add datatable to dashboard
+```
+
+```{r}
+formatRound(complaint_corr, columns = colnames(complaint_corr), digits=3)
+```
+
+
