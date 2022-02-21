@@ -111,7 +111,7 @@ plot.ts.complaints <- function(
                                     "#619CFF", "#DC71FA"))
 }
 
-process.borough.data <- function(df, 
+process.borough.data <- function(df, borough_pop,
                                  complaint = "covid-19 non-essential construction") {
   
   covid_by_borough = df %>%
@@ -129,9 +129,9 @@ process.borough.data <- function(df,
   return(covid_by_borough)
 }
 
-plot.borough.bp <- function(df,
+plot.borough.bp <- function(df,borough_pop,
                             complaint = "covid-19 non-essential construction") {
-  cmp_borough = process.borough.data(df, complaint)
+  cmp_borough = process.borough.data(df,borough_pop, complaint)
   cmp_borough$borough <- factor(cmp_borough$borough, levels = cmp_borough$borough)
   
   call_freq_borough_bp = ggplot(cmp_borough, aes(fill=borough, y=prop_calls, x=borough)) +

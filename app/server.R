@@ -346,7 +346,7 @@ shinyServer(function(input, output) {
   output$Barchart2 <- renderPlot({  
     
     complaint = input$complaint_type
-    plot.borough.bp(covid_calls, complaint)
+    plot.borough.bp(covid_calls,borough_pop, complaint)
     
   })
   
