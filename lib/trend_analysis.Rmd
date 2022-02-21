@@ -77,7 +77,7 @@ plot.ts.complaints(covid_calls)
 # Viewing covid call volume by borough
 
 ```{r}
-neighborhood = read.csv("../data/nyc_zip_borough_neighborhoods_pop.csv", na.strings=c("","N/A","NA"))
+neighborhoods = read.csv("../data/nyc_zip_borough_neighborhoods_pop.csv", na.strings=c("","N/A","NA"))
 borough_pop = neighborhoods %>% 
   group_by(borough) %>% 
   summarise(total_pop = sum(population))

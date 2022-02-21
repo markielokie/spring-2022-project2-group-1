@@ -106,7 +106,7 @@ colnames(complaint_corr) = c("non-compliance\nw/phased\nreopening",
 covid_complaints = unique(covid_calls$Complaint.Type)
 by_covid_complaint = process.freq.df(covid_calls)
 
-neighborhood = read.csv("../data/nyc_zip_borough_neighborhoods_pop.csv", na.strings=c("","N/A","NA"))
+neighborhoods = read.csv("../data/nyc_zip_borough_neighborhoods_pop.csv", na.strings=c("","N/A","NA"))
 borough_pop = neighborhoods %>% 
   group_by(borough) %>% 
   summarise(total_pop = sum(population))
