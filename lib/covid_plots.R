@@ -26,7 +26,7 @@ urlfile = "https://raw.githubusercontent.com/nytimes/covid-19-data/master/us-cou
 covid_plot <- function(date1,date2,cumulative=FALSE) {
   
   dat_ma = read_csv("..\\output\\covid_cases.csv")%>%
-    filter(date>=date1,date<=date2)
+    filter(date>=as.Date(paste0(2019,'-',10,'-',1)),date<=as.Date(paste0(2022,'-',2,'-',11)))
   
 
   if(cumulative==FALSE){
@@ -53,7 +53,9 @@ covid_plot <- function(date1,date2,cumulative=FALSE) {
       title="Daily Cases & Deaths in NYC",
       subtitle="7-Day Moving Average",
       x="Date"
-    ) 
+    ) +
+    geom_rect(mapping = aes(xmin=date1,xmax=date2,ymin=-Inf,ymax=Inf),
+              fill="#FF9F33",alpha=0.002)
   }
 
   else{
@@ -79,7 +81,9 @@ covid_plot <- function(date1,date2,cumulative=FALSE) {
       labs(
         title="Cumulative Cases & Deaths in NYC",
         x="Date"
-      ) 
+      ) +
+      geom_rect(mapping = aes(xmin=date1,xmax=date2,ymin=-Inf,ymax=Inf),
+                fill="#FF9F33",alpha=0.002)
   }
   return(p)
 }

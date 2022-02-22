@@ -123,8 +123,7 @@ shinyUI(
                              label = '',
                              choices = c('Phase 0: Oct 2019 - Feb 2020','Phase 1: Mar 2020 - May 2020',
                                          'Phase 2: Jun 2020 - Oct 2020','Phase 3: Nov 2020 - May 2021',
-                                         'Phase 4: Jun 2021 - Oct 2021','Phase 5: Nov 2021 - Present',
-                                         "Overall"),
+                                         'Phase 4: Jun 2021 - Oct 2021','Phase 5: Nov 2021 - Present'),
                              selected = 'Phase 0: Oct 2019 - Feb 2020'),
                  
                  prettyRadioButtons(
@@ -140,6 +139,9 @@ shinyUI(
                ),
                mainPanel(
                  h2(textOutput("phase_text")),
+                 h5(textOutput("phase_text2")),
+                 h3("Key observations before the pandemic:"),
+                 htmlOutput("phase_text3"),
                  plotOutput(outputId = "covid_cases"),
                  plotOutput(outputId = "distPlot_network")
                ),
