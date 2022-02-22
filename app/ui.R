@@ -24,7 +24,7 @@ shinyUI(
                    #style = "",
                    top = "20%",
                    left = "8%",
-                   right = "52%",
+                   right = "43%",
                    height = 170,
                    tags$p(
                      style = "padding: 5%; 
