@@ -281,25 +281,55 @@ shinyServer(function(input, output) {
   }) ## close phase_text    
  
   
-  output$phase_text3  <- renderText ({ 
+  output$phase_text3  <- renderUI ({ 
     
     p=substr(input$phase,start=7,stop=7)
-    if(p=="0"){p='1. We observe that "residential building" issues dominate the 311 calls, with many pertaining to "hot water" issues in the building and "noisy neighbors". \n
-2. We also notice high volume of payment-related issues like "property tax", "payment disputes", "camera violations" and "parking tickets".\n
-3. There are high number of calls on "bulk items" collection and the data suggest that people call 311 for scheduling, rescheduling and cancellation of appointments.'}
-    else if(p=="1"){p='1. Expectedly, "Covid-19 pandemic" issues dominate the calls amidst fears of the novel coronavirus. \n
-2. Calls pertaining to "consumers", "workers" and "families" were alluding to fears over business closures and job security.\n
-3. Many people were calling to inquire about "social distancing guidelines" and "symptoms/prevention" as well.\n
-4. Issues that were dominant before the pandemic were overshadowed by Covid-related calls.'}
-    else if(p=="2"){p='1. While "Covid-19" issues continue to dominate majority of the calls, other issues start to increase in volume commensurate with Covid-19 calls as with during the pre-pandemic phase.\n
-2. Notably, "afford delivery food" and "low income seniors" start to appear in the calls, which could imply the increase in the need for financial assistance.'}
-    else if(p=="3"){p='1.With the emergence of the Delta variant and the successful approval of the mRNA vaccine for emergency use, calls relating to the "Covid-19 vaccine" started to appear for the first time.\n
-2. Also, because of Covid, applying for IDNYC cards were only available by appointments and on limited basis. This could explain the increase in calls pertaining to "idnyc municipal identification cards".\n
-3. The usual "bulk item", "camera violations", "payment disputes", "parking tickets" and "hot water" issues start to reappear as with the pre-pandemic phase. '}
-    else if(p=="4"){p='1. When the number of cases when down, the call volume relating to "Covid-19" dropped as well. \n
-2. Calls relating to "residential", "camera violations", "property tax" and "idnyc municipal identification card" appointments continue to dominate the calls.'}
-    else if(p=="5"){p='1. The occurrence of calls relating to the "Covid-19 vaccine" started to resurface and this is likely due to the increased fears in the Omicron variant. To note, "symptoms prevention" and \n
-2. Calls relating to "residential buildings", "camera violations"and "property tax" issues continue to dominate the calls.'}
+    if(p=="0"){p=
+    HTML('<p><ol>
+          <li> Residential building issues dominate the 311 calls, with many pertaining to hot water issues in the building and "noisy neighbors" </li>
+          <li> High volume of payment-related issues like "property tax", "payment disputes", "camera violations" and "parking tickets" </li>
+          <li> High call volume on "bulk items" collection. This suggests that people call 311 for scheduling, rescheduling and cancellation of appointments </li> 
+         </ol></p>'
+        )
+    }
+    else if(p=="1"){p=
+    HTML('<p><ol>
+          <li> Covid-19 pandemic issues dominate the calls </li>
+          <li> Calls pertaining to "consumers", "workers" and "families" allude to fears over business closures and job security </li>
+          <li> Many calls inquired about "social distancing guidelines" and "symptoms/prevention" </li>
+          <li> Issues that were dominant before the pandemic were overshadowed by Covid-related calls </li>
+         </ol></p>'
+         )
+    }
+    else if(p=="2"){p=
+    HTML('<p><ol>
+          <li> While Covid issues continue to dominate, other issues start to increase to levels similar to the pre-pandemic phase </li>
+          <li> "Afford delivery food" and "low income seniors" start to appear, which could imply the increase in the need for financial assistance </li>
+         </ol></p>'
+        )
+    }
+    else if(p=="3"){p=
+    HTML('<p><ol>
+          <li> With the emergence of the Delta variant and the approval of the mRNA vaccine, Covid-19 vaccine calls appear for the first time.</li>
+          <li> Due to Covid, applications for IDNYC cards were only available by appointments and on limited basis. This could explain the increase in calls pertaining to "idnyc municipal identification cards".</li>
+          <li> The usual "bulk item", "camera violations", "payment disputes", "parking tickets" and "hot water" issues reappear </li>
+         </ol></p>'
+        )
+    }
+    else if(p=="4"){p=
+    HTML('<p><ol>
+          <li> As cases went down, Covid-19 calls were less frequent </li>
+          <li> Calls relating to "residential", "camera violations", "property tax" and "idnyc municipal identification card" appointments continue to dominate </li>
+         </ol></p>'
+        )
+    }
+    else if(p=="5"){p=
+    HTML('<p><ol>
+          <li> Calls about the "Covid-19 vaccine" and "symptom prevention" restarted to resurface likely due to the increased fears of the Omicron variant </li>
+          <li> Calls relating to "residential buildings", "camera violations"and "property tax" issues continue to dominate the calls </li>
+         </ol></p>'
+         )
+    }
     else {p="Overall"}
     return(p)
     
