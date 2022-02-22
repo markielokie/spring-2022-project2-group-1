@@ -112,24 +112,6 @@ borough_pop = neighborhoods %>%
   summarise(total_pop = sum(population))
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 # Define server logic required to draw a histogram
 shinyServer(function(input, output) {
 
