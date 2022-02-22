@@ -1,35 +1,22 @@
 # Project 2: Shiny App Development
 
-### [Project Description](doc/project2_desc.md)
-
-![screenshot](doc/figs/map.jpg)
-
-In this second project of GR5243 Applied Data Science, we develop a *Exploratory Data Analysis and Visualization* shiny app on the work of a **NYC government agency/program** of your choice using NYC open data released on the [NYC Open Data By Agency](https://opendata.cityofnewyork.us/data/) website. In particular, many agencies have adjusted their work or rolled out new programs due to COVID, your app should provide ways for a user to explore quantiative measures of how covid has impacted daily life in NYC from different prospectives. See [Project 2 Description](doc/project2_desc.md) for more details.  
-
-The **learning goals** for this project is:
-
-- business intelligence for data science
-- data cleaning
-- data visualization
-- systems development/design life cycle
-- shiny app/shiny server
-
-*The above general statement about project 2 can be removed once you are finished with your project. It is optional.
-
-## Project Title Lorem ipsum dolor sit amet
+## Project Title: Impact of Covid-19 on NYC 311 Calls
 Term: Spring 2022
 
-+ Team #
-+ **Projec title**: + Team members
-	+ team member 1
-	+ team member 2
-	+ team member 3
-	+ team member 4
-	+ team member 5
+![screenshot](doc/figs/nyc311.jpeg)
 
-+ **Project summary**: Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
++ **Project title**: Impact of Covid-19 on NYC 311 Calls
 
-+ **Contribution statement**: ([default](doc/a_note_on_contributions.md)) All team members contributed equally in all stages of this project. All team members approve our work presented in this GitHub repository including this contributions statement. 
++ Team #1
+	+ Christie Du (cd3250@columbia.edu)
+	+ Jiazheng Chen (jc5656@columbia.edu)
+	+ Marcus Loke (ml4636@columbia.edu)
+
++ **Project summary**: The COVID-19 pandemic has had an unprecedented impact on the lives of New Yorkers and on NYC government agencies. This application focuses on how the pandemic has affected NYC311, the 311 service line that fields thousands of calls seeking information and assistance as well as filing complaints and reporting non-emergency violations. 311 acts as the first point of contact for any non-911 issues and redirects callers to the appropriate agency such as the Department of Buildings, NYPD, and etc. 
+
+Using 311 call data found on [NYC OpenData](https://opendata.cityofnewyork.us/), we observed changes in 311 call patterns that reflected the relevant COVID-19 issues and mandates at each stage of the pandemic. The results elicit insights that would be useful for the planning and mitigation efforts of NYC agencies. Understanding each borough's pertinent issues in response to COVID-19 and safety mandates would facilitate more effective future resource allocation and management by the departments directly handling incidents and cases. 
+
++ **Contribution statement**: All team members contributed equally in all stages of this project. All team members approve our work presented in this GitHub repository including this contribution statement.
 
 Following [suggestions](http://nicercode.github.io/blog/2013-04-05-projects/) by [RICH FITZJOHN](http://nicercode.github.io/about/#Team) (@richfitz). This folder is orgarnized as follows.
 
