@@ -29,11 +29,11 @@ shinyUI(
                    tags$p(
                      style = "padding: 5%; 
                      background-color: white; 
-                     font-size: 120%; 
+                     font-size: 125%; 
                      font-weight: bold;
                      opacity: 0.9;
                      color: black",
-                     "Impact of Covid-19 on NYC 311 Calls"
+                     "Impact of COVID-19 on NYC 311 Calls"
                    ),
                    tags$p(
                      style = "padding: 5%; 
@@ -118,8 +118,32 @@ shinyUI(
               # Main panel for displaying outputs ----
               mainPanel(
                 # Output
+                HTML("<h3><b>COVID-19 related complaints changed at different 
+                <span style='color: DarkOrange'>time points</span> 
+                of the pandemic and varied by 
+                <span style='color: DarkOrange'>borough</span>
+                </b></h3><br>
+                     <h5>During the pandemic, 5 strictly COVID-19 related complaints were reported: 
+                     <ol>
+                      <li>Vaccine mandate non-compliance</li>
+                      <li>Noncompliance with phased reopening</li>
+                      <li>Mass gathering complaint</li>
+                      <li>Face covering violation</li>
+                      <li>Covid-19 non-essential construction</li>
+                     </ol></h5><br>"
+                ),
                 plotOutput(outputId = "Barchart1"),
+                HTML("<br><h3><b>Complaint types changed in response to 
+                <span style='color: DarkOrange'>COVID-19 mandates. </span></b></h3><br>
+                     <h5>In the early stages of the pandemic, NYC non-essential businesses and construction were mandated 
+                     to shut down. Today, businesses are allowed to be open contingent on them following vaccine and face 
+                     covering mandates.</h5><br>"
+                ),
                 plotOutput(outputId = "ts"),
+                HTML("<br><h3><b>Each 
+                     <span style='color: DarkOrange'>borough prioritized </span>
+                     reporting different COVID-19 related violations.</b></h3><br>"
+                ),
                 selectInput('complaint_type',
                             label = 'Complaint Type',
                             choices = c("noncompliance with phased reopening",
@@ -129,7 +153,9 @@ shinyUI(
                                         "face covering violation"
                             ),
                             selected = "noncompliance with phased reopening"),
-                plotOutput(outputId = "Barchart2")
+                plotOutput(outputId = "Barchart2"),
+                HTML("<h5>Each borough's call volume was normalized by its population. The value plotted
+                     is (call volume / population) / sum(across all boroughs) *100, so that all bars sum to 100. </h5><br>")
               )
             ),          
             #------------------------------- tab panel - Correlation ---------------------------------
@@ -139,8 +165,26 @@ shinyUI(
               # Main panel for displaying outputs ----
               mainPanel(
                 # Output
+                HTML("<h3><b>Some
+                <span style='color: DarkOrange'>non-COVID complaints </span>
+                were heavily correlated with COVID complaints</b></h3><br>
+                     <h5>During the entirety of the pandemic, there were around 200 different complaint types, 
+                     only 5 of which directly referenced COVID-19. However, many COVID and non-COVID calls were
+                     correlated.</h5><br>"
+                ),
                 plotOutput(outputId = "Correlation"),
-                tags$h4("-----------------------------------------------------"),
+                HTML("<h5>It is good to note that many of the construction related complaints are clustered together 
+                     (electric, plumbing, door/window, flooring/stairs, paint/plaster). These are all 
+                     negatively correlated with COVID-19 non-essential construction.<br></h5>
+                     
+                     <h6> Figure details. Non-covid complaints shown are those with |corr| > 0.7 for at least one 
+                     covid complaint. Face covering violations are not shown because there were too few data 
+                     points for sound correlation analysis.</h6>"
+                ),
+                HTML("<br><h3><b>
+                     <span style='color: DarkOrange'>Unfiltered </span>
+                     correlation values</b></h3><br>"
+                ),
                 dataTableOutput(outputId = "Datatable"),
               )
             ),  
@@ -182,13 +226,19 @@ shinyUI(
             tabPanel(
               "References ",
               icon=icon("list"),
+              HTML("<h3><b>Concluding Remarks</b> </h3>
+                <h5>Conclusion here</h5>"
+              ),
               HTML("<h3><b>Data Sources</b> </h3>
+              <h5> Both 311 datasets were downloaded one year at a time starting from 2019-present.</h5>
                 <h5> <p><a href='https://data.beta.nyc/dataset/pediacities-nyc-neighborhoods/resource/7caac650-d082-4aea-9f9b-3681d568e8a5'>
-                NYC zip and population data</a></p></h5>
+                  NYC zip and population data</a></p></h5>
                 <h5><p><a href='https://data.cityofnewyork.us/City-Government/311-Call-Center-Inquiry/wewp-mm3p' target='_blank'>
                    NYC 311 call center inquiry data</a></p></h5>
-                   <h5><p><a href='https://data.cityofnewyork.us/Social-Services/311-Service-Requests-from-2010-to-Present/erm2-nwe9' target='_blank'>
-                   NYC 311 service requests data</a></p></h5>"
+                <h5><p><a href='https://data.cityofnewyork.us/Social-Services/311-Service-Requests-from-2010-to-Present/erm2-nwe9' target='_blank'>
+                   NYC 311 service requests data</a></p></h5>
+                <h5><p><a href='https://data.cityofnewyork.us/Social-Services/311-Service-Requests-from-2010-to-Present/erm2-nwe9' target='_blank'>
+                   NYC COVID case and death data</a></p></h5>"
               ),
               HTML("<h3><b>Contributors</b> </h3>
                 <h5> <p>Jiazheng Chen (jc5656@columbia.edu)</p></h5>
@@ -196,7 +246,7 @@ shinyUI(
                 <h5><p>Marcus Loke (ml4636@columbia.edu)</p></h5>"
               ),
               HTML("<h3><b>Github Repository</b> </h3>
-                <h5><p><a href='https://github.com/TZstatsADS/spring-2022-project2-group-1/' target='_blank'>
+                <h5><p><a href='https://github.com/nytimes/covid-19-data' target='_blank'>
                    311 App Repository</a></p></h5>"
               ),
             ),
