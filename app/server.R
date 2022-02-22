@@ -276,12 +276,12 @@ shinyServer(function(input, output) {
   output$phase_text  <- renderText ({ 
     
     p=substr(input$phase,start=7,stop=7)
-    if(p=="0"){p="Phase 0: pre-pandemic (Oct 2019 - Feb 2020)"}
-    else if(p=="1"){p="Phase 1: initial outbreak (Mar 2020 - May 2020)"}
-    else if(p=="2"){p="Phase 2: cases go down (Jun 2020 - Oct 2020)"}
-    else if(p=="3"){p="Phase 3: cases go up + delta variant (Nov 2020 - May 2021)"}
-    else if(p=="4"){p="Phase 4: cases go down (Jun 2021 - Oct 2021)"}
-    else if(p=="5"){p="Phase 5: cases go up + omicron variant (Nov 2021 - present)"}
+    if(p=="0"){p="Phase 0: Pre-Pandemic (Oct 2019 - Feb 2020)"}
+    else if(p=="1"){p="Phase 1: Initial Outbreak (Mar 2020 - May 2020)"}
+    else if(p=="2"){p="Phase 2: Cases Drop (Jun 2020 - Oct 2020)"}
+    else if(p=="3"){p="Phase 3: Cases Rise + Delta Variant (Nov 2020 - May 2021)"}
+    else if(p=="4"){p="Phase 4: Cases Drop (Jun 2021 - Oct 2021)"}
+    else if(p=="5"){p="Phase 5: Cases Rise + Omicron Variant (Nov 2021 - present)"}
     else {p="Overall"}
     return(p)
     
@@ -358,7 +358,12 @@ shinyServer(function(input, output) {
   output$Datatable <- renderDataTable({  
     
     datatable(complaint_corr, 
-              options = list(pageLength=5)) %>%
+              options = list(pageLength=10, 
+                             initComplete=JS(
+                               "function(settings, json) {",
+                               "$(this.api().table().header()).css({'color': '#fff'});",
+                               "}"
+                             ))) %>%
       formatRound(columns = colnames(complaint_corr), digits=3)
     
   })

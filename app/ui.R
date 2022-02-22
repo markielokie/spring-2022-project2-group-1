@@ -110,7 +110,41 @@ shinyUI(
                           ), #Panel Control - Closing
                       ) #Maps - Div closing
              ), #tabPanel maps closing
-                
+            
+             #------------------------------- tab panel - network diagram ---------------------------------
+             tabPanel(
+               "311 call topics during the pandemic",
+               icon=icon("phone"),
+               sidebarPanel(
+                 width = 3,
+                 tags$h4('Pandemic Phases: '), 
+                 
+                 selectInput('phase',
+                             label = '',
+                             choices = c('Phase 0: Oct 2019 - Feb 2020','Phase 1: Mar 2020 - May 2020',
+                                         'Phase 2: Jun 2020 - Oct 2020','Phase 3: Nov 2020 - May 2021',
+                                         'Phase 4: Jun 2021 - Oct 2021','Phase 5: Nov 2021 - Present',
+                                         "Overall"),
+                             selected = 'Phase 0: Oct 2019 - Feb 2020'),
+                 
+                 prettyRadioButtons(
+                   inputId = "cum",
+                   label = "", 
+                   choices = c("Daily 7-Day Moving Avg","Cumulative"),
+                   inline = TRUE, 
+                   status = "danger",
+                   fill = TRUE,
+                   selected =  "Daily 7-Day Moving Avg"
+                 ) 
+                 
+               ),
+               mainPanel(
+                 h2(textOutput("phase_text")),
+                 plotOutput(outputId = "covid_cases"),
+                 plotOutput(outputId = "distPlot_network")
+               ),
+             ),
+                 
             #------------------------------- tab panel - 3 plots ---------------------------------
             tabPanel(
               "Covid-19 calls during the pandemic",
@@ -187,47 +221,24 @@ shinyUI(
                 ),
                 dataTableOutput(outputId = "Datatable"),
               )
-            ),  
-            
-            #------------------------------- tab panel - network diagram ---------------------------------
-            tabPanel(
-              "311 call topics during the pandemic",
-              icon=icon("phone"),
-              sidebarPanel(
-                width = 3,
-                tags$h4('Pandemic Phases: '), 
-                
-                selectInput('phase',
-                            label = '',
-                            choices = c('Phase 0: Oct 2019 - Feb 2020','Phase 1: Mar 2020 - May 2020',
-                                        'Phase 2: Jun 2020 - Oct 2020','Phase 3: Nov 2020 - May 2021',
-                                        'Phase 4: Jun 2021 - Oct 2021','Phase 5: Nov 2021 - present',
-                                        "Overall"),
-                            selected = 'Phase 0: Oct 2019 - Feb 2020'),
-                
-                prettyRadioButtons(
-                  inputId = "cum",
-                  label = "", 
-                  choices = c("7-day avg","Cumulative"),
-                  inline = TRUE, 
-                  status = "danger",
-                  fill = TRUE,
-                  selected =  "7-day avg"
-                ) 
-                
-              ),
-              mainPanel(
-                h2(textOutput("phase_text")),
-                plotOutput(outputId = "covid_cases"),
-                plotOutput(outputId = "distPlot_network")
-              ),
-            ),           
+            ),
             #------------------------------- tab panel - Conclusion ---------------------------------
             tabPanel(
               "References ",
               icon=icon("list"),
               HTML("<h3><b>Concluding Remarks</b> </h3>
-                <h5>Conclusion here</h5>"
+                <h5>The pandemic did have an ubiquitous impact over the lives of New Yorkers and that was evident in the NYC311 call patterns from 2019 to 2022.</h5>
+                <h5>The network diagrams indicated that residential and payment-related issues were the dominant call types pre-pandemic but transited to 
+                <br>Covid-related calls at the onset of the pandemic. Throughout the pandemic, we saw an increase in calls pertaining to social distancing 
+                <br>guidelines, symptoms and prevention, assistance in food delivery programs and livelihood, and vaccine-related matters. But as the pandemic 
+                <br>waxed and waned the dominant issues that occurred pre-pandemic started to surface again.</h5>
+                <h5>Also, the call complaint types changed over time in accordance with the Covid-19 health mandates. For example, during the early phases of 
+                <br>the pandemic, businesses were ordered to shut down, and this resulted in high call volumes regarding non-compliance with phased opening, 
+                <br>leading us to believe that most businesses were not in compliance with health mandates. During the later phases of the pandemic, however, 
+                <br>the calls were mostly on vaccine and face covering violations, which is a consequence of recent vaccine and masking mandates.</h5>
+                <h5>The correlation between Covid-19 and non-Covid-19 calls were interesting to note as well. For instance, many construction-related
+                <br>complaints were clustered together and were negatively correlated with Covid-19 non-essential construction because residents could not do 
+                <br>anything about it because non-essential work were not permitted (the high number of complaints were also corroborated by the network diagrams).</h5>"
               ),
               HTML("<h3><b>Data Sources</b> </h3>
               <h5> Both 311 datasets were downloaded one year at a time starting from 2019-present.</h5>
