@@ -142,6 +142,7 @@ shinyUI(
                  h5(textOutput("phase_text2")),
                  h3("Key observations before the pandemic:"),
                  htmlOutput("phase_text3"),
+                 tags$br(),
                  plotOutput(outputId = "covid_cases"),
                  plotOutput(outputId = "distPlot_network")
                ),

@@ -80,7 +80,7 @@ covid_plot <- function(dat_ma,date1,date2,cumulative=FALSE) {
         x="Date"
       ) +
       geom_rect(mapping = aes(xmin=date1,xmax=date2,ymin=-Inf,ymax=Inf),
-                fill="#FF9F33",alpha=0.002)
+                fill="yellow",alpha=0.002)
   }
   return(p)
 }

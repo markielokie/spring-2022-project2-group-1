@@ -5,9 +5,9 @@ account: jiazhengchen
 server: shinyapps.io
 hostUrl: https://api.shinyapps.io/v1
 appId: 5712371
-bundleId: 5607314
+bundleId: 5607343
 url: https://jiazhengchen.shinyapps.io/project2-group1/
-when: 1645570003.14781
-lastSyncTime: 1645570003.14781
+when: 1645570560.93368
+lastSyncTime: 1645570560.93368
 asMultiple: FALSE
 asStatic: FALSE
