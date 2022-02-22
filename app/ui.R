@@ -5,14 +5,14 @@ library(leaflet)
 library(leaflet.extras)
 library(DT)
 
-# Define UI for application that draws a histogram
+
 shinyUI(
-  navbarPage(strong("Impact of COVID on 311 Calls",style="color: #FFF202;"), 
+  navbarPage(strong("COVID-19 and 311 Calls", style="color: #FFF208;"), 
              theme=shinytheme("superhero"), # from https://rstudio.github.io/shinythemes/
              #------------------------------- tab panel - Dashboard ---------------------------------
              tabPanel(
                "Introduction",
-               icon=icon("fire-alt"),
+               icon=icon("house-user"),
                tags$img(
                  ## need to change
                  src = "https://pbs.twimg.com/media/ER8s5YYXkAIwh78.jpg",
@@ -22,14 +22,47 @@ shinyUI(
                fluidRow(
                  absolutePanel(
                    #style = "",
-                   top = "30%",
-                   left = "5%",
+                   top = "20%",
+                   left = "8%",
                    right = "52%",
                    height = 170,
                    tags$p(
-                     style = "padding: 5%; background-color: white; font-family: alegreya; font-size: 120%;opacity: 0.90",
-                     "Some introduction!!!" 
-                   )
+                     style = "padding: 5%; 
+                     background-color: white; 
+                     font-size: 120%; 
+                     font-weight: bold;
+                     opacity: 0.9;
+                     color: black",
+                     "Impact of Covid-19 on NYC 311 Calls"
+                   ),
+                   tags$p(
+                     style = "padding: 5%; 
+                     margin: 0%;
+                     background-color: white; 
+                     font-size: 90%; 
+                     opacity: 0.9;
+                     color: black",
+                     "The COVID-19 pandemic has had an unprecedented impact on the lives of New Yorkers and on 
+                     NYC government agencies. This application focuses on how the pandemic has affected NYC311,
+                     the 311 service line that fields thousands of calls seeking information and assistance as 
+                     well as filing complaints and reporting non-emergency violations. 311 acts as the first point 
+                     of contact for any non-911 issues and redirects callers to the appropriate agency such as the 
+                     Department of Buildings or the NYPD."
+                   ),
+                   tags$p(
+                     style = "padding: 5%; 
+                     margin: 0%;
+                     background-color: white; 
+                     font-size: 90%; 
+                     opacity: 0.9;
+                     color: black",
+                     "Using 311 call data found on NYC OpenData, we observed changes in 311 call patterns that 
+                     reflected the relevant COVID-19 issues and mandates at each stage of the pandemic. The 
+                     results elicit insights that would be useful for the planning and mitigation efforts of 
+                     NYC agencies. Understanding each borough’s pertinent issues in response to COVID-19 and safety 
+                     mandates would facilitate more effective future resource allocation and management by the 
+                     departments directly handling incidents and cases. "
+                   ),
                  )
                )
              ),
@@ -80,8 +113,8 @@ shinyUI(
                 
             #------------------------------- tab panel - 3 plots ---------------------------------
             tabPanel(
-              "Covid-19 calls throughout the pandemic",
-              icon=icon("fire-alt"),
+              "Covid-19 calls during the pandemic",
+              icon=icon("phone"),
               # Main panel for displaying outputs ----
               mainPanel(
                 # Output
@@ -101,8 +134,8 @@ shinyUI(
             ),          
             #------------------------------- tab panel - Correlation ---------------------------------
             tabPanel(
-              "Correlation between Covid and non-Covid Calls",
-              icon=icon("fire-alt"),
+              "Covid and non-Covid call relationship",
+              icon=icon("phone"),
               # Main panel for displaying outputs ----
               mainPanel(
                 # Output
@@ -114,8 +147,8 @@ shinyUI(
             
             #------------------------------- tab panel - network diagram ---------------------------------
             tabPanel(
-              "311 call topics throughout the pandemic",
-              icon=icon("fire-alt"),
+              "311 call topics during the pandemic",
+              icon=icon("phone"),
               sidebarPanel(
                 width = 3,
                 tags$h4('Pandemic Phases: '), 
@@ -147,16 +180,25 @@ shinyUI(
             ),           
             #------------------------------- tab panel - Conclusion ---------------------------------
             tabPanel(
-              "Conclusion ",
-              icon=icon("fire-alt"),
-              # Main panel for displaying outputs ----
-              mainPanel(
-                # Output
-                 tags$h2("References"),
-                 tags$h4("1. abc"),
-                 tags$h4("2. abc"),
-                 tags$h2("Appendix"),
-              )
+              "References ",
+              icon=icon("list"),
+              HTML("<h3><b>Data Sources</b> </h3>
+                <h5> <p><a href='https://data.beta.nyc/dataset/pediacities-nyc-neighborhoods/resource/7caac650-d082-4aea-9f9b-3681d568e8a5'>
+                NYC zip and population data</a></p></h5>
+                <h5><p><a href='https://data.cityofnewyork.us/City-Government/311-Call-Center-Inquiry/wewp-mm3p' target='_blank'>
+                   NYC 311 call center inquiry data</a></p></h5>
+                   <h5><p><a href='https://data.cityofnewyork.us/Social-Services/311-Service-Requests-from-2010-to-Present/erm2-nwe9' target='_blank'>
+                   NYC 311 service requests data</a></p></h5>"
+              ),
+              HTML("<h3><b>Contributors</b> </h3>
+                <h5> <p>Jiazheng Chen (jc5656@columbia.edu)</p></h5>
+                <h5><p>Christie Du (cd3250@columbia.edu)</p></h5>
+                <h5><p>Marcus Loke (ml4636@columbia.edu)</p></h5>"
+              ),
+              HTML("<h3><b>Github Repository</b> </h3>
+                <h5><p><a href='https://github.com/TZstatsADS/spring-2022-project2-group-1/' target='_blank'>
+                   311 App Repository</a></p></h5>"
+              ),
             ),
              
   ) #navbarPage closing  
