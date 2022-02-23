@@ -1,11 +1,11 @@
 # Project 2: Shiny App Development
 
-## Project Title: Impact of Covid-19 on NYC 311 Calls
+## Project Title: Impact of Covid-19 on NYC311 Calls
 Term: Spring 2022
 
 ![screenshot](doc/figs/nyc311.jpeg)
 
-+ **Project title**: Impact of Covid-19 on NYC 311 Calls
++ **Project title**: Impact of Covid-19 on NYC311 Calls
 
 + **Team #1**:
 	+ [Christie Du](https://www.linkedin.com/in/christie-du/) (cd3250@columbia.edu)
