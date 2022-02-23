@@ -140,7 +140,7 @@ shinyUI(
                mainPanel(
                  h2(textOutput("phase_text")),
                  h5(textOutput("phase_text2")),
-                 h3("Key observations before the pandemic:"),
+                 h3("Key observations:"),
                  htmlOutput("phase_text3"),
                  tags$br(),
                  plotOutput(outputId = "covid_cases"),
@@ -160,7 +160,7 @@ shinyUI(
                 of the pandemic and varied by 
                 <span style='color: DarkOrange'>borough</span>
                 </b></h3><br>
-                     <h5>During the pandemic, 5 strictly COVID-19 related complaints were reported: 
+                     <h5>During the pandemic, five (5) strictly COVID-19 related complaints were reported: 
                      <ol>
                       <li>Vaccine mandate non-compliance</li>
                       <li>Noncompliance with phased reopening</li>
@@ -206,7 +206,7 @@ shinyUI(
                 <span style='color: DarkOrange'>non-COVID complaints </span>
                 were heavily correlated with COVID complaints</b></h3><br>
                      <h5>During the entirety of the pandemic, there were around 200 different complaint types, 
-                     only 5 of which directly referenced COVID-19. However, many COVID and non-COVID calls were
+                     only five (5) of which directly referenced COVID-19. However, many COVID and non-COVID calls were
                      correlated.</h5><br>"
                 ),
                 plotOutput(outputId = "Correlation"),
@@ -251,7 +251,7 @@ shinyUI(
                    NYC 311 call center inquiry data</a></p></h5>
                 <h5><p><a href='https://data.cityofnewyork.us/Social-Services/311-Service-Requests-from-2010-to-Present/erm2-nwe9' target='_blank'>
                    NYC 311 service requests data</a></p></h5>
-                <h5><p><a href='https://data.cityofnewyork.us/Social-Services/311-Service-Requests-from-2010-to-Present/erm2-nwe9' target='_blank'>
+                <h5><p><a href='https://github.com/nytimes/covid-19-data' target='_blank'>
                    NYC COVID case and death data</a></p></h5>"
               ),
               HTML("<h3><b>Contributors</b> </h3>

@@ -286,47 +286,47 @@ shinyServer(function(input, output) {
     p=substr(input$phase,start=7,stop=7)
     if(p=="0"){p=
     HTML('<p><ol>
-          <li> Residential building issues dominate the 311 calls, with many pertaining to hot water issues in the building and "noisy neighbors" </li>
-          <li> High volume of payment-related issues like "property tax", "payment disputes", "camera violations" and "parking tickets" </li>
-          <li> High call volume on "bulk items" collection. This suggests that people call 311 for scheduling, rescheduling and cancellation of appointments </li> 
+          <li> "Residential building" issues dominate the 311 calls, with many pertaining to "hot water" issues in the building and "noisy neighbors". </li>
+          <li> High call volume of payment-related issues like "property tax", "payment disputes", "camera violations" and "parking tickets". </li>
+          <li> High call volume on "bulk items" collection. This suggests that people call 311 for scheduling, rescheduling and cancellation of appointments. </li> 
          </ol></p>'
         )
     }
     else if(p=="1"){p=
     HTML('<p><ol>
-          <li> Covid-19 pandemic issues dominate the calls </li>
-          <li> Calls pertaining to "consumers", "workers" and "families" allude to fears over business closures and job security </li>
-          <li> Many calls inquired about "social distancing guidelines" and "symptoms/prevention" </li>
-          <li> Issues that were dominant before the pandemic were overshadowed by Covid-related calls </li>
+          <li> "Covid-19 pandemic" issues dominate the calls. </li>
+          <li> Calls pertaining to "consumers", "workers" and "families" allude to fears over business closures and job security. </li>
+          <li> Many calls inquired about "social distancing guidelines" and "symptoms/prevention". </li>
+          <li> Issues that were dominant before the pandemic were overshadowed by Covid-related calls. </li>
          </ol></p>'
          )
     }
     else if(p=="2"){p=
     HTML('<p><ol>
-          <li> While Covid issues continue to dominate, other issues start to increase to levels similar to the pre-pandemic phase </li>
-          <li> "Afford delivery food" and "low income seniors" start to appear, which could imply the increase in the need for financial assistance </li>
+          <li> While Covid issues continue to dominate, other issues start to increase to levels similar to the pre-pandemic phase. </li>
+          <li> "Afford delivery food" and "low income seniors" start to appear, which could imply the increase in the need for financial assistance. </li>
          </ol></p>'
         )
     }
     else if(p=="3"){p=
     HTML('<p><ol>
-          <li> With the emergence of the Delta variant and the approval of the mRNA vaccine, Covid-19 vaccine calls appear for the first time.</li>
+          <li> With the emergence of the Delta variant and the approval of the mRNA vaccine, calls on the "Covid-19 vaccine" appear for the first time.</li>
           <li> Due to Covid, applications for IDNYC cards were only available by appointments and on limited basis. This could explain the increase in calls pertaining to "idnyc municipal identification cards".</li>
-          <li> The usual "bulk item", "camera violations", "payment disputes", "parking tickets" and "hot water" issues reappear </li>
+          <li> The usual "bulk item", "camera violations", "payment disputes", "parking tickets" and "hot water" issues reappear with greater frequency of occurrence. </li>
          </ol></p>'
         )
     }
     else if(p=="4"){p=
     HTML('<p><ol>
-          <li> As cases went down, Covid-19 calls were less frequent </li>
-          <li> Calls relating to "residential", "camera violations", "property tax" and "idnyc municipal identification card" appointments continue to dominate </li>
+          <li> As cases went down, Covid-19 calls were less frequent. </li>
+          <li> Calls relating to "residential", "camera violations", "property tax" and "idnyc municipal identification card" appointments continued to dominate. </li>
          </ol></p>'
         )
     }
     else if(p=="5"){p=
     HTML('<p><ol>
-          <li> Calls about the "Covid-19 vaccine" and "symptom prevention" restarted to resurface likely due to the increased fears of the Omicron variant </li>
-          <li> Calls relating to "residential buildings", "camera violations"and "property tax" issues continue to dominate the calls </li>
+          <li> Calls about the "Covid-19 vaccine" and "symptom prevention" started to resurface likely due to the increased fears of the Omicron variant and vaccine efficacy. </li>
+          <li> Calls relating to "residential buildings", "camera violations"and "property tax" issues remained prominent. </li>
          </ol></p>'
          )
     }
